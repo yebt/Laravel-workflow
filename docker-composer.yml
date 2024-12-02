@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    volumes:
+      - ./laravel-app:/var/www/html
+    networks:
+      - laravel
+
+  webserver:
+    image: nginx:latest
+    container_name: nginx_server
+    volumes:
+      - ./laravel-app:/var/www/html
+      - ./container/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+    networks:
+      - laravel
+    depends_on:
+      - app
+  
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=galery_db
+      - MYSQL_USER=galery_user
+      - MYSQL_PASSWORD=galery_password
+    volumes:
+      - ./mysql:/var/lib/mysql:z
+    ports:
+      - "5001:3306"
+    container_name: mysql_server
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - "5002:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=galery_user
+      - PMA_PASSWORD=galery_password
+      - PMA_DATABASE=galery_db
+      - MYSQL_ROOT_PASSWORD=root
+      - UPLOAD_LIMIT=2048M
+    container_name: spdr_phpmyadmin
+
+networks:
+  laravel:
+    driver: bridge
