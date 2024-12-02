@@ -11,7 +11,7 @@ docker-compose ps
 Up all services
 
 ```sh
-docler-compse up
+docler-compse up -d
 ```
 
 Down all services
