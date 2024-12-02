@@ -2,20 +2,23 @@ version: '3.8'
 
 services:
   app:
+    privileged: true
     build:
       context: .
       dockerfile: Dockerfile
     container_name: laravel_app
     volumes:
-      - ./laravel-app:/var/www/html
+      - ./laravel-app:/var/www/html:Z
+      # - ./laravel-app:/var/www/html
     networks:
       - laravel
 
   webserver:
     image: nginx:latest
     container_name: nginx_server
+    privileged: true
     volumes:
-      - ./laravel-app:/var/www/html
+      - ./laravel-app:/var/www/html:Z
       - ./container/nginx/default.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "8080:80"
@@ -49,7 +52,7 @@ services:
       - PMA_DATABASE=galery_db
       - MYSQL_ROOT_PASSWORD=root
       - UPLOAD_LIMIT=2048M
-    container_name: spdr_phpmyadmin
+    container_name: phpmyadmin_server
 
 networks:
   laravel:
