@@ -11,6 +11,7 @@ RUN apk add neovim fish bash
 RUN pecl install imagick
 RUN docker-php-ext-enable imagick
 RUN docker-php-ext-install pdo pdo_mysql mysqli intl gd zip exif;
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Add composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
