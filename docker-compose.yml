@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      # - /run/user/1000/docker/docker.sock:/tmp/docker.sock:Z #
+      - /run/user/1000/podman/podman.sock:/tmp/docker.sock:Z #
+      # - ./nginx/nginx_proxy/error.log:/var/log/nginx/error.log:Z # optional to monitor error.log
+      # - ./nginx/nginx_proxy/access.log:/var/log/nginx/access.log:Z # optional to monitor access.log
+      # - /var/run/docker.sock:/tmp/docker.sock:ro #  on case of  use podman-docker and docker-remote
+    privileged: true
+    container_name: nginx_proxy
+    restart: always
+
   app:
     privileged: true
     build:
@@ -20,6 +35,10 @@ services:
     volumes:
       - ./laravel-app:/var/www/html:Z
       - ./container/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    # config to vhost
+    environment:
+      - VIRTUAL_HOST=catspace.test
+      - VIRTUAL_PORT=80
     ports:
       - "8080:80"
     networks:
@@ -27,7 +46,7 @@ services:
     depends_on:
       - app
   
-  mysql:
+  dbserv:
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -39,13 +58,15 @@ services:
     ports:
       - "5001:3306"
     container_name: mysql_server
+    networks:
+      - laravel
 
   phpmyadmin:
     image: phpmyadmin:latest
     ports:
       - "5002:80"
     environment:
-      - PMA_HOST=mysql
+      - PMA_HOST=dbserv
       - PMA_PORT=3306
       - PMA_USER=galery_user
       - PMA_PASSWORD=galery_password
@@ -53,6 +74,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - UPLOAD_LIMIT=2048M
     container_name: phpmyadmin_server
+    networks:
+      - laravel
 
 networks:
   laravel:
