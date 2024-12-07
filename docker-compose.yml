@@ -39,6 +39,8 @@ services:
     ports:
       - "5001:3306"
     container_name: mysql_server
+    networks:
+      - laravel
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -53,6 +55,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - UPLOAD_LIMIT=2048M
     container_name: phpmyadmin_server
+    networks:
+      - laravel
 
 networks:
   laravel:
