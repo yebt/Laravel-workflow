@@ -3,15 +3,21 @@ version: '3.8'
 services:
 
   nginx-proxy:
+    # docs: https://github.com/nginx-proxy/nginx-proxy/blob/main/docs/README.md
     image: nginxproxy/nginx-proxy
     ports:
       - "80:80"
     volumes:
-      # - /run/user/1000/docker/docker.sock:/tmp/docker.sock:Z #
+      # Config
+      - ./container/nginx_proxy/addtiionals.conf:/etc/nginx/conf.d/addtiionals.conf:ro
+
+      # Socket 
       - /run/user/1000/podman/podman.sock:/tmp/docker.sock:Z #
-      # - ./nginx/nginx_proxy/error.log:/var/log/nginx/error.log:Z # optional to monitor error.log
-      # - ./nginx/nginx_proxy/access.log:/var/log/nginx/access.log:Z # optional to monitor access.log
       # - /var/run/docker.sock:/tmp/docker.sock:ro #  on case of  use podman-docker and docker-remote
+
+      # Lgos
+      # - ./container/nginx_proxy/error.log:/var/log/nginx/error.log:Z # optional to monitor error.log
+      # - ./container/nginx_proxy/access.log:/var/log/nginx/access.log:Z # optional to monitor access.log
     privileged: true
     container_name: nginx_proxy
     restart: always
