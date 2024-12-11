@@ -1,26 +1,45 @@
 FROM php:7.4-fpm-alpine
-# 
-RUN apk update
-RUN apk upgrade
-# Compatible deps
-RUN apk add git unzip libpq libpq-dev libzip libzip-dev curl imagemagick imagemagick-dev autoconf automake cmake make gcc g++ icu icu-dev libpng libpng-dev zlib zlib-dev
-# Optional
-RUN apk add neovim fish bash
 
-# Dependencies of libs for php
-RUN pecl install imagick
-RUN docker-php-ext-enable imagick
-RUN docker-php-ext-install pdo pdo_mysql mysqli intl gd zip exif;
-RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-
-# Add composer
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Working dir
+# imagecreatefromjpeg
+
+# Deps
+RUN apk add --no-cache \
+    git unzip autoconf curl gcc icu libpq-dev libzip-dev  icu-dev libpng-dev zlib-dev libwebp-dev;
+
+# GD with FreeType, JPEG, WEBP
+RUN apk add --no-cache --virtual .build-deps \
+    freetype-dev \
+    libjpeg \
+    libjpeg-turbo \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    jpeg-dev libpng-dev \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+  && docker-php-ext-install -j$(nproc) gd;
+
+# Libs
+RUN docker-php-ext-install -j$(nproc) pdo pdo_mysql mysqli intl zip exif;
+
+#  a
+RUN apk add --no-cache imagemagick imagemagick-dev;
+RUN apk add --no-cache cmake make automake build-base autoconf libtool;
+RUN pecl install imagick;
+RUN docker-php-ext-enable imagick;
+
+# Optional dependencies
+RUN apk add neovim fish bash;
+
+# Copy the PHP.ini file for ini-development
+RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini";
+
+
+# PSYSH
+RUN wget https://psysh.org/psysh && chmod +x psysh && mv psysh /usr/local/bin/psysh;
+
 WORKDIR /var/www/html
-#COPY ./laravel-app /var/www/html
-#RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-#RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-#RUN composer i
 
 EXPOSE 9000
+
