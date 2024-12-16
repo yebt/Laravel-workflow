@@ -30,6 +30,8 @@ services:
     container_name: laravel_app
     volumes:
       - ./laravel-app:/var/www/html:Z
+      # Inspect the var: PHP_INI_DIR in the php container to link config
+      - ./container/php-fpm/additionals-php.ini:/usr/local/etc/php/conf.d/additionals-php.ini
       # - ./laravel-app:/var/www/html
     networks:
       - laravel
