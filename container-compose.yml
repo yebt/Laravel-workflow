@@ -5,6 +5,7 @@ services:
   nginx-proxy:
     # docs: https://github.com/nginx-proxy/nginx-proxy/blob/main/docs/README.md
     image: nginxproxy/nginx-proxy
+    container_name: nginx_proxy
     ports:
       - "80:80"
     volumes:
@@ -19,15 +20,14 @@ services:
       # - ./container/nginx_proxy/error.log:/var/log/nginx/error.log:Z # optional to monitor error.log
       # - ./container/nginx_proxy/access.log:/var/log/nginx/access.log:Z # optional to monitor access.log
     privileged: true
-    container_name: nginx_proxy
     restart: always
 
   app:
     privileged: true
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: laravel_app
+      # dockerfile: Dockerfile
+    container_name: php-app_app
     volumes:
       - ./php-app:/var/www/html:Z
       # Inspect the var: PHP_INI_DIR in the php container to link config
