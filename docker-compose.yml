@@ -17,8 +17,8 @@ services:
       # - /var/run/docker.sock:/tmp/docker.sock:ro #  on case of  use podman-docker and docker-remote
 
       # Lgos
-      # - ./container/nginx_proxy/error.log:/var/log/nginx/error.log:Z # optional to monitor error.log
-      # - ./container/nginx_proxy/access.log:/var/log/nginx/access.log:Z # optional to monitor access.log
+      - ./container/nginx_proxy/error.log:/var/log/nginx/error.log:Z # optional to monitor error.log
+      - ./container/nginx_proxy/access.log:/var/log/nginx/access.log:Z # optional to monitor access.log
     privileged: true
     restart: always
 
@@ -43,6 +43,8 @@ services:
     volumes:
       - ./php-app:/var/www/html:Z
       - ./container/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./container/nginx/error.log:/var/log/nginx/error.log:Z # optional to monitor error.log
+      - ./container/nginx/access.log:/var/log/nginx/access.log:Z # optional to monitor access.log
     # config to vhost
     environment:
       - VIRTUAL_HOST=webdesk.test
