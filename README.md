@@ -40,8 +40,8 @@ DB_CONNECTION=mysql
 # DB_HOST=127.0.0.1
 DB_HOST=mysql_server
 DB_PORT=3306
-DB_DATABASE=galery_db
-DB_USERNAME=galery_user
-DB_PASSWORD=galery_password
+DB_DATABASE=webdesk_db
+DB_USERNAME=webdesk_user
+DB_PASSWORD=webdesk_password
 ```
 

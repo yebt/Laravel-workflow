@@ -58,9 +58,9 @@ services:
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=galery_db
-      - MYSQL_USER=galery_user
-      - MYSQL_PASSWORD=galery_password
+      - MYSQL_DATABASE=webdesk_db
+      - MYSQL_USER=webdesk_user
+      - MYSQL_PASSWORD=webdesk_password
     volumes:
       - ./mysql:/var/lib/mysql:z
     ports:
@@ -76,9 +76,9 @@ services:
     environment:
       - PMA_HOST=dbserv
       - PMA_PORT=3306
-      - PMA_USER=galery_user
-      - PMA_PASSWORD=galery_password
-      - PMA_DATABASE=galery_db
+      - PMA_USER=webdesk_user
+      - PMA_PASSWORD=webdesk_password
+      - PMA_DATABASE=webdesk_db
       - MYSQL_ROOT_PASSWORD=root
       - UPLOAD_LIMIT=2048M
     container_name: phpmyadmin_server
