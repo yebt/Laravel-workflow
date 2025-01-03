@@ -8,7 +8,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Deps
 RUN apk add --no-cache \
-    git unzip autoconf curl gcc icu libpq-dev libzip-dev  icu-dev libpng-dev zlib-dev libwebp-dev;
+    git unzip autoconf curl gcc icu libpq-dev libzip-dev  icu-dev libpng-dev zlib-dev libwebp-dev imap-dev;
 
 # GD with FreeType, JPEG, WEBP
 RUN apk add --no-cache --virtual .build-deps \
@@ -22,7 +22,7 @@ RUN apk add --no-cache --virtual .build-deps \
   && docker-php-ext-install -j$(nproc) gd;
 
 # Libs
-RUN docker-php-ext-install -j$(nproc) pdo pdo_mysql mysqli intl zip exif;
+RUN docker-php-ext-install -j$(nproc) pdo pdo_mysql mysqli intl zip exif imap;
 
 #  a
 RUN apk add --no-cache imagemagick imagemagick-dev;
@@ -31,7 +31,7 @@ RUN pecl install imagick;
 RUN docker-php-ext-enable imagick;
 
 # Optional dependencies
-RUN apk add neovim fish bash;
+RUN apk add neovim fish bash gawk;
 
 # Copy the PHP.ini file for ini-development
 RUN cp "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini";
