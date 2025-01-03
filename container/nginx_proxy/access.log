@@ -1,6 +1,1 @@
-webdesk.test 10.89.4.146 - - [03/Jan/2025:20:13:39 +0000] "GET / HTTP/1.1" 200 357 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "10.89.4.150:80"
-webdesk.test 10.89.4.146 - - [03/Jan/2025:20:13:41 +0000] "GET /install/ HTTP/1.1" 200 10841 "http://webdesk.test/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "10.89.4.150:80"
-webdesk.test 10.89.4.146 - - [03/Jan/2025:20:13:44 +0000] "POST /install/ HTTP/1.1" 200 12315 "http://webdesk.test/install/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "10.89.4.150:80"
-webdesk.test 10.89.4.146 - - [03/Jan/2025:20:13:45 +0000] "POST /install/ HTTP/1.1" 200 9993 "http://webdesk.test/install/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "10.89.4.150:80"
-webdesk.test 10.89.4.146 - - [03/Jan/2025:20:14:06 +0000] "POST /install/ HTTP/1.1" 200 47554 "http://webdesk.test/install/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "10.89.4.150:80"
-webdesk.test 10.89.4.146 - - [03/Jan/2025:20:15:33 +0000] "POST /install/ HTTP/1.1" 504 562 "http://webdesk.test/install/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" "10.89.4.150:80"
+
