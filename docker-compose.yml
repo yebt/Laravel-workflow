@@ -45,7 +45,7 @@ services:
       - ./container/nginx/default.conf:/etc/nginx/conf.d/default.conf
     # config to vhost
     environment:
-      - VIRTUAL_HOST=catspace.test
+      - VIRTUAL_HOST=webdesk.test
       - VIRTUAL_PORT=80
     ports:
       - "8080:80"
