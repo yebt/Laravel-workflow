@@ -29,6 +29,9 @@ RUN apk add --no-cache imagemagick imagemagick-dev;
 RUN apk add --no-cache cmake make automake build-base autoconf libtool;
 RUN pecl install imagick;
 RUN docker-php-ext-enable imagick;
+# Install xdebug
+RUN pecl install xdebug-3.1.6;
+RUN docker-php-ext-enable xdebug;
 
 # Optional dependencies
 RUN apk add neovim fish bash gawk;
