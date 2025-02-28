@@ -38,7 +38,8 @@ RUN pecl install xdebug-3.1.6;
 RUN docker-php-ext-enable xdebug;
 # Redis
 RUN pecl install redis;
-RUN docker-php-ext-install pcntl; # for horizontal
+# for horizontal
+RUN docker-php-ext-install pcntl;
 RUN docker-php-ext-enable redis;
 
 # Optional dependencies
