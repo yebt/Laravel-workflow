@@ -36,11 +36,14 @@ RUN docker-php-ext-enable imagick;
 # https://xdebug.org/docs/compat
 RUN pecl install xdebug-3.1.6;
 RUN docker-php-ext-enable xdebug;
+# Supervisord
+COPY ./container/supervisor/supervisord.conf /etc/supervisord.conf
+RUN apk add supervisor;
 # Redis
 RUN pecl install redis;
 # for horizontal
 RUN docker-php-ext-install pcntl;
-RUN docker-php-ext-enable redis;
+RUN docker-php-ext-enable redis pcntl;
 
 # Optional dependencies
 RUN apk add neovim fish bash gawk;
