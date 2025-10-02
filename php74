@@ -1,0 +1,2 @@
+#!/bin/bash
+podman exec -w /var/www/html php-app_app php "$@"
