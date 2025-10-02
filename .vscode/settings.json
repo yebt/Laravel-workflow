@@ -1,0 +1,9 @@
+{
+    "bladeFormatter.format.phpVersion": "7.4",
+    "intelephense.environment.phpVersion": "7.4",
+    "LaravelExtraIntellisense.phpCommand": "podman exec -w /var/www/html php-app_app php -r \"{code}\"",
+    "LaravelExtraIntellisense.basePath": "/var/www/html",
+    "Laravel.phpCommand": "podman exec -w /var/www/html php-app_app php -r \"{code}\"",
+    "Laravel.basePath": "/var/www/html",
+    "php.validate.executablePath": "~/Development/Work/shopindero-containers/php74"
+}
